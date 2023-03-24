@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { UserRoles } from '../common/utils/types'
+import Meals from '../components/user/meals/Meals'
 import { AdminLayout } from '../layout/admin'
 import { UserLayout } from '../layout/user'
+import MealsPage from '../pages/admin/Meals.page'
+import Orders from '../pages/admin/Orders.pages'
 import { SignInPage } from '../pages/guest/SignIn'
 import { SignUpPage } from '../pages/guest/SignUp'
 import { RootState } from '../store/store'
@@ -35,7 +38,7 @@ export const AppRoutes = () => {
                                 UserRoles.USER,
                             ])}
                             fallBackPath="admin/meals"
-                            component={() => <p>MealsPage</p>}
+                            component={Meals}
                         />
                     }
                 />
@@ -100,7 +103,7 @@ export const AppRoutes = () => {
                         <ProtectedRoute
                             isAllowed={isAllowed([UserRoles.ADMIN])}
                             fallBackPath="/"
-                            component={() => <p>AdminMeals</p>}
+                            component={MealsPage}
                         />
                     }
                 />
@@ -110,7 +113,7 @@ export const AppRoutes = () => {
                         <ProtectedRoute
                             isAllowed={isAllowed([UserRoles.ADMIN])}
                             fallBackPath="/"
-                            component={() => <p>AdminOrders</p>}
+                            component={Orders}
                         />
                     }
                 />

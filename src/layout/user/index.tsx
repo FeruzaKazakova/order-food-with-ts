@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { styled } from '@mui/system'
 import Header from './Header'
+import Basket from '../../components/user/basket/Basket'
 
 export const UserLayout = () => {
     const [isBasketVisible, setBasketVisible] = useState<boolean>(false)
@@ -13,6 +14,9 @@ export const UserLayout = () => {
     return (
         <>
             <Header onShowBasket={showBasketHandler}/>
+            {isBasketVisible && (
+            <Basket open={isBasketVisible} onClose={showBasketHandler} />
+          )}
             <Content>
                 <Outlet />
             </Content>

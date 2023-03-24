@@ -1,11 +1,13 @@
 import { Button } from '@mui/material'
 import { styled } from '@mui/system'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import BasketButton from '../../components/user/BasketButton'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { signOut } from '../../store/auth/auth.thunk'
-import { AppDispatch, RootState } from '../../store/store'
+import { getBasket } from '../../store/basket/basket.thunk'
+import { RootState } from '../../store/store'
 
 type Props = {
     onShowBasket: () => void
@@ -16,24 +18,32 @@ function Header({ onShowBasket }: Props) {
     const isAuthorized = useSelector(
         (state: RootState) => state.auth.isAuthorized
     )
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useAppDispatch()
+    const items = useSelector((state: RootState) => state.basket.items)
     const [animationClass, setAnimationClass] = useState('')
 
-    // useEffect(() => {
-    //     'hjkhk'
-    // }, [dispatch])
+    const calculateTotalAmount = () => {
+        const sum = items.reduce((s, item) => {
+            return s + item.amount
+        }, 0)
+        return sum
+    }
 
-    // useEffect(() => {
-    //     setAnimationClass('bump')
+    useEffect(()=>{
+        dispatch(getBasket()) 
+    },[dispatch])
 
-    //     const id = setTimeout(() => {
-    //         setAnimationClass('')
-    //     }, 300)
+    useEffect(() => {
+        setAnimationClass('bump')
 
-    //     return () => {
-    //         clearTimeout(id)
-    //     }
-    // }, [])
+        const id = setTimeout(() => {
+            setAnimationClass('')
+        }, 300)
+
+        return () => {
+            clearTimeout(id)
+        }
+    }, [])
 
     const signOutHandler = () => {
         dispatch(signOut())
@@ -58,8 +68,8 @@ function Header({ onShowBasket }: Props) {
             )}
             <BasketButton
                 className={animationClass}
-                count={0}
                 onClick={showBasketHandler}
+                count={calculateTotalAmount()}
             />
         </Container>
     )
@@ -75,6 +85,7 @@ const StyledButton = styled(Button)(() => ({
     color: 'white',
     border: 'none',
     backgroundColor: '#5A1F08',
+    marginLeft: '5rem',
 
     '&:hover': {
         backgroundColor: '#AD5502',

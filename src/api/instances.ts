@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { signOut } from '../store/auth/auth.thunk'
 import { store } from '../store/store'
 
 export const mainApi = axios.create({
@@ -12,6 +13,9 @@ mainApi.interceptors.request.use(
         return config
     },
     function (error) {
+        if (error.response.status === 401) {
+            store.dispatch(signOut())
+        }
         return error
     }
 )

@@ -24,7 +24,7 @@ export const SignUpPage = () => {
 
     type FormSchema = (typeof schema)['_output']
 
-    const { getValues, handleSubmit, register, formState } = useForm({
+    const { handleSubmit, register, formState } = useForm({
         defaultValues: {
             name: '',
             email: '',
@@ -98,9 +98,9 @@ export const SignUpPage = () => {
                                 {formState.errors.confirm.message}
                             </Typography>
                         )}
-                        <Button type="submit" sx={{ marginTop: '1rem' }}>
+                        <StyledSignUpButton type="submit">
                             Sign Up
-                        </Button>
+                        </StyledSignUpButton>
                         <Link to="/signin">Have an account?</Link>
                     </StyledGrid2>
                 </form>
@@ -115,6 +115,7 @@ const StyledGrid = styled(Grid)(() => ({
     padding: '20px',
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: '10px',
 }))
 
 const StyledGrid2 = styled(Grid)(() => ({
@@ -126,4 +127,21 @@ const MainGridContainer = styled(Grid)(() => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: '10rem',
+}))
+
+const StyledSignUpButton = styled(Button)(() => ({
+    color: '#fff',
+    backgroundColor: '#AD5502',
+    width: '30%',
+    alignSelf: 'center',
+    marginTop: '1rem',
+
+    '&:hover': {
+        backgroundColor: '#eb892e',
+        color: '#fff',
+    },
+    '&:active': {
+        backgroundColor: '#8d401f',
+        color: '#fff',
+    },
 }))

@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/system'
@@ -20,7 +20,7 @@ export const SignInPage = () => {
 
     type FormSchema = (typeof schema)['_output']
 
-    const { getValues, handleSubmit, register, formState } = useForm({
+    const { handleSubmit, register, formState } = useForm({
         defaultValues: {
             email: '',
             password: '',
@@ -67,7 +67,9 @@ export const SignInPage = () => {
                                 {formState.errors.password.message}
                             </Typography>
                         )}
-                        <Button type="submit">Sign In</Button>
+                        <StyledSignInButton type="submit">
+                            Sign In
+                        </StyledSignInButton>
                         <Link to="/signup">{`Don't have an account?`}</Link>
                     </StyledGrid2>
                 </form>
@@ -82,6 +84,7 @@ const StyledGrid = styled(Grid)(() => ({
     padding: '20px',
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: '10px',
 }))
 
 const StyledGrid2 = styled(Grid)(() => ({
@@ -93,4 +96,22 @@ const MainGridContainer = styled(Grid)(() => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: '10rem',
+}))
+
+const StyledSignInButton = styled(Button)(() => ({
+    color: '#fff',
+    backgroundColor: '#AD5502',
+    width: '30%',
+    alignSelf: 'center',
+    marginTop: '1.5rem',
+    marginBottom: '1rem',
+
+    '&:hover': {
+        backgroundColor: '#eb892e',
+        color: '#fff',
+    },
+    '&:active': {
+        backgroundColor: '#8d401f',
+        color: '#fff',
+    },
 }))

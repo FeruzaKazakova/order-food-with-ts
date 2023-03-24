@@ -26,7 +26,7 @@ export const AdminHeader = () => {
     return (
         <>
             <AppBar position="static">
-                <Toolbar>
+                <StyledToolbar>
                     <Container>
                         <GridContainer>
                             {menus.map((item) => (
@@ -35,32 +35,38 @@ export const AdminHeader = () => {
                                 </StyledLink>
                             ))}
                         </GridContainer>
-                        <Button color="inherit" onClick={signOutHandler}>
+                        <StyledButton color="inherit" onClick={signOutHandler}>
                             Log out
-                        </Button>
+                        </StyledButton>
                     </Container>
-                </Toolbar>
+                </StyledToolbar>
             </AppBar>
         </>
     )
 }
 
-const Container = styled(Grid)(() => ({
+const Container = styled(Toolbar)(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     backgroundColor: '#8A2B06',
-    width: '97%',
+    width: '100%',
     alignItems: 'center',
     position: 'fixed',
     zIndex: '800',
-    marginTop: '-10rem',
-    height: '5rem',
+    height: '6rem',
+    marginLeft: '-1.5rem',
+}))
+
+const StyledToolbar = styled(Toolbar)(() => ({
+    backgroundColor: '#8A2B06'
 }))
 
 const GridContainer = styled(Grid)(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '2rem',
+    padding: '1rem',
+    marginTop: '1rem',
 }))
 
 const StyledLink = styled(NavLink)(() => ({
@@ -69,6 +75,19 @@ const StyledLink = styled(NavLink)(() => ({
     padding: '10px',
     backgroundColor: '#5A1F08',
     color: '#fff',
+    '&:hover': {
+        backgroundColor: '#451807',
+    },
+    '&:active': {
+        backgroundColor: '#AD5502',
+    },
+}))
+
+const StyledButton = styled(Button)(() => ({
+    backgroundColor: '#5A1F08',
+    padding: '10px',
+    marginRight: '1rem',
+    marginTop: '1rem',
     '&:hover': {
         backgroundColor: '#451807',
     },
